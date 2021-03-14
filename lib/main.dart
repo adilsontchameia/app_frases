@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'package:flutter/material.dart';
 
 //Primeiro - Precisamos do metodo main.
@@ -17,6 +18,26 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  //Criando a logica - Arrays de Frases
+  var _frases = [
+  "The sun is beautiful.", 
+  "The moon is awesome", 
+  "I love coding", 
+  "Coding is life, and its awesome"];
+  //Titulos
+  var _fraseGerada = "Clique abaixo para gerar uma frase !";
+  //Metodo para gerar a frase
+  void _gerarFrase() {
+    //0,1,2,3
+    //Vai definir automaticamente o numero de frase
+    var numeroSorteado = Random().nextInt(_frases.length);
+
+    //Atualizar as frases na interface
+    setState(() {
+      _fraseGerada = _frases[numeroSorteado];
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     //Terceiro retornar um scaffold, para a base do app.
@@ -35,11 +56,12 @@ class _HomeState extends State<Home> {
               children: [
                 Image.asset("images/logo.png"),
                 Text(
-                  "Clique abaixo para gerar uma frase !",
+                  _fraseGerada,
                   textAlign: TextAlign.justify,
                   style: TextStyle(
-                    fontSize: 25,
-                      fontStyle: FontStyle.italic, color: Colors.blue),
+                      fontSize: 25,
+                      fontStyle: FontStyle.italic,
+                      color: Colors.blue),
                 ),
                 RaisedButton(
                   child: Text(
@@ -50,7 +72,7 @@ class _HomeState extends State<Home> {
                         fontWeight: FontWeight.bold),
                   ),
                   color: Colors.blue,
-                  onPressed: () {},
+                  onPressed: _gerarFrase,
                 ),
               ],
             ),
